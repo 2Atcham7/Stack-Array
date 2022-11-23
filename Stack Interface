@@ -1,0 +1,9 @@
+public interface MyStack{
+   //sentinel methods
+   public boolean isFull();
+   public boolean isEmpty();
+   //the standard method names
+   public boolean push(Object item);
+   public Object pop();
+   public Object peek();
+}//end of interface
