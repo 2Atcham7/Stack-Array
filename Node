@@ -1,0 +1,18 @@
+/***
+   Node class - utility class for creating linked-base linear data structure
+**/
+public class Node{
+   //define the properties of the Node class
+   private Object item;
+   private Node next;
+   //constructor
+   public Node(Object item)               { this.item=item; }
+   public Node()                          {}
+   //setters
+   public void setItem(Object item)       { this.item=item; }
+   public void setNext(Node next)         { this.next=next; }
+   //getters
+   public Object getItem()                { return item; }
+   public Node getNext()                  { return next; }
+   
+}//end of class
