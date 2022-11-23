@@ -1,0 +1,114 @@
+/***
+   infix to postfix
+   no parenthesis
+**/
+public class InfixToPostfix{
+   //data container
+   public String infix;
+   //constructor
+   public InfixToPostfix(String infix){
+      this.infix=infix;
+   }
+   //
+   public boolean isOperator(char ch){
+      return ch=='+' || ch =='-' || ch == '*' || ch =='/';
+   }
+   //
+   public boolean isSpace(char ch){
+      return ch == ' ';
+   }
+   //
+   /*
+      *,/ highest precedence
+      +,i lower precedence
+   */
+   public boolean lowerPrecedence(char a,char b){
+      switch(a){
+         case '+': case '-': return !(b=='+' || b=='-');    
+      }
+      return false;
+   }
+   
+   //conversion method
+   public String convert(){
+      StringBuffer postfix = new StringBuffer();
+      MyStack stack = new MyStackLinked();
+         if(!infix.equals("")){
+            java.util.StringTokenizer st = new java.util.StringTokenizer(infix,"-+*/ ",true);
+            while(st.hasMoreTokens()){
+               String token=st.nextToken();
+               char ch = token.charAt(0);
+               //check if ch is an operator
+               if(isOperator(ch) && !isSpace(ch)){
+                     while(!stack.isEmpty() && !lowerPrecedence(stack.peek().toString().charAt(0),ch)){
+                        postfix.append(stack.pop()).append(" ");
+                     }
+                  stack.push(ch);
+               }
+               else{
+                  postfix.append(token).append(" ");
+               }
+            }
+            //for(;!stack.isEmpty();postfix.append(stack.pop()));
+            while(!stack.isEmpty()){
+               postfix.append(stack.pop()).append(" ");
+            }
+         }
+      return postfix.toString();
+   }
+   static void evaluatePostfix(String exp)
+  {
+      MyStack stack = new MyStackLinked();   
+      int n = exp.length();
+      
+      for(int i=0;i<n;i++)
+      {
+        if(isOperator(exp.charAt(i)))
+        {
+        
+        int op1 = postfix.pop();
+        int op2 = postfix.pop();
+              
+        
+        switch(exp.charAt(i))
+        {
+            case '+': postfix.push(op2 + op1);
+                      break;
+                      
+            case '-': postfix.push(op2 - op1);
+                      break;
+                      
+            case '*': postfix.push(op2 * op1);
+                      break;
+                
+            case '/': postfix.push(op2 / op1);
+                      break;
+                    
+        }
+        
+        }
+        
+        else
+        {
+        
+        int operand = exp.charAt(i) - '0';
+        postfix.push(operand);
+        }
+      }
+      
+      
+      System.out.println(postfix.pop());
+  }
+
+   
+   //
+   static public void main(String ...args){
+      String infix = "1-2*3+4/5";
+      System.out.println("Infix :"+infix);
+      InfixToPostfix itf = new InfixToPostfix(infix);
+      System.out.println("Postfix: "+itf.convert());
+      System.out.print("The PostFix Calculation for the Given Expression "+exp+" is: ");
+      evaluatePostfix(exp);
+
+   }
+}//end of class
